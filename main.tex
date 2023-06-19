@@ -1,0 +1,434 @@
+%! TEX TS-program = LuaLaTeX
+
+% Gemini theme
+% See: https://rev.cs.uchicago.edu/k4rtik/gemini-uccs
+% A fork of https://github.com/anishathalye/gemini
+
+\documentclass[12pt, usenames, dvipsnames]{beamer}
+
+% ====================
+% Packages
+% ====================
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[size=a0, scale=1]{beamerposter}
+\usetheme{gemini}
+\usecolortheme{stanford}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{thmtools}
+
+% For theorems and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\usepackage{natbib}
+
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bbm}
+
+% ====================
+% Lengths
+% ====================
+
+% If you have N columns, choose \sepwidth and \colwidth such that
+% (N+1)*\sepwidth + N*\colwidth = \paperwidth
+\newlength{\sepwidth}
+\newlength{\colwidth}
+\setlength{\sepwidth}{0.025\paperwidth}
+\setlength{\colwidth}{0.3\paperwidth}
+
+\newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
+
+\definecolor{DarkFern}{HTML}{407428}
+\definecolor{CBRed}{HTML}{994F00}
+\definecolor{CBBlue}{HTML}{006CD1}
+\colorlet{Fern}{DarkFern!85!white}
+\colorlet{LightFern}{DarkFern!20!white}
+
+\colorlet{LightCerulean}{CBBlue!20!white}
+\setbeamercolor{result}{bg=LightCerulean}
+
+%% load custom macros and pre-defined symbols
+\input{macros/math}
+%% macros for paragraph mode
+\input{macros/paragraph}
+
+%% tikz
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\input{macros/plots}
+\usetikzlibrary{shapes, arrows}
+\usetikzlibrary{decorations.pathreplacing, calligraphy}
+
+\newcommand{\red}[1]{\textcolor{CBRed}{#1}}
+\newcommand{\blue}[1]{\textcolor{CBBlue}{#1}}
+\newcommand{\purple}[1]{\textcolor{Magenta}{#1}}
+
+% node styles
+\tikzstyle{Input}=[minimum size=0.3cm, fill=black, line width = 0.5mm, draw=black, shape=circle, text=black]
+\tikzstyle{Hidden}=[minimum size=0.3cm, fill=blue, line width = 0.5mm, draw=blue, shape=circle, text=black]
+\tikzstyle{Splits}=[inner sep=0.03cm, minimum size=0.3cm, line width = 0.3mm, draw=blue, shape=circle, text=black]
+\tikzstyle{Output}=[minimum size=0.3cm, fill=white, line width = 0.5mm, draw=black, shape=circle, text=black]
+
+% Edge styles
+\tikzstyle{arrow}=[line width = 0.5mm]
+
+
+\title{Optimal Sets and Solution Paths of ReLU Networks}
+
+
+\author{Aaron Mishkin \inst{1} \and Mert Pilanci \inst{2}}
+
+\institute[shortinst]{\inst{1} Department of Computer Science, Stanford University \samelineand \inst{2} Department of Electrical Engineering, Stanford University}
+
+% ====================
+% Footer (optional)
+% ====================
+
+\footercontent{
+	\href{https://github.com/pilancilab/relu_optimal_sets}{https://github.com/pilancilab/relu\_optimal\_sets} \hfill
+	ICML 2022 \hfill
+	\href{mailto:amishkin@cs.stanford.edu}{amishkin@cs.stanford.edu}}
+% (can be left out to remove footer)
+
+% ====================
+% Logo (optional)
+% ====================
+
+% use this to include logos on the left and/or right side of the header:
+% \logoright{\includegraphics[height=7cm]{logos/cs-logo-maroon.png}}
+% \logoleft{\includegraphics[height=7cm]{logos/cs-logo-maroon.png}}
+
+% ====================
+% Body
+% ====================
+
+\begin{document}
+
+% This adds the Logos on the top left and top right
+\addtobeamertemplate{headline}{}
+{
+	\begin{tikzpicture}[remember picture,overlay]
+		%   \node [anchor=north west, inner sep=3cm] at ([xshift=0.0cm,yshift=1.0cm]current page.north west)
+		%   {\includegraphics[height=5.0cm]{stanford_logos/Stanford-CS.png}}; % uc-logo-white.eps
+		\node [anchor=north east, inner sep=3cm] at ([xshift=0.0cm,yshift=2.5cm]current page.north east)
+		{\includegraphics[height=7.5cm]{stanford_logos/Block_S_2_color.png}};
+	\end{tikzpicture}
+}
+
+\begin{frame}[t]
+	\begin{columns}[t]
+		\separatorcolumn
+
+		\begin{column}{\colwidth}
+			\vspace{-1.5em}
+			\begin{block}{Introduction}
+				\large
+				{
+					\Large
+					\blue{\textbf{Idea}}: Derive optima for ReLU models via convex reformulations.
+				}
+
+				\begin{itemize}
+					\item \textbf{Critical Points}: we extend characterization to all Clarke stationary points.
+
+					\item \textbf{Pruning}: we compute ``narrowest'' ReLU networks via optimal pruning.
+
+					\item \textbf{Regularization}: we prove continuity for permutation-unique solutions.
+				\end{itemize}
+
+				\vspace{-1em}
+
+				\begin{figure}[]
+					\centering
+					\includegraphics[width=.9\textwidth]{assets/solution_sets_vis_270.png}
+					\caption{\textbf{Optimal set} for the first features of three different
+						neurons.}
+					\vspace{-1em}
+					\label{fig:solution-sets}
+				\end{figure}
+
+			\end{block}
+
+			\begin{block}{Convex Reformulations: ReLU Networks}
+
+				\begin{columns}[t]
+					\begin{column}{0.62\textwidth}
+
+						\large
+						{\Large \red{Non-Convex Problem}:}
+						\vspace{1em}
+						{
+							\Large
+							\[
+								\min_{w^1, w^2} \underbrace{\norm{\sum_{j=1}^m (X w^1_j)_+ w_j^2 - y}_2^2}_{\text{Squared Error}}
+								+ \underbrace{\lambda \sum_{j=1}^m \norm{w^1_j}_2^2 + \norm{w^2_j}_2^2}_{\text{Weight Decay}},
+							\]
+						}
+						where \( \rbr{x}_+ = \max\cbr{x, 0} \) is the ReLU activation.
+
+
+						\vspace{2.5em}
+						\hrule
+						\vspace{2.5em}
+
+						{\Large \blue{Convex Reformulation}}: {\normalsize \citep{pilanci2020convexnn}}
+						\vspace{1em}
+						{\Large
+							\[
+								\begin{aligned}
+									\min_{v, h} & \norm{\sum_{j=1}^p D_j X (v_j - h_j) - y}_2^2 +
+									\lambda \sum_{j=1}^p \norm{v_j}_2 + \norm{h_j}_2              \\
+									            & \hspace{0.2em} \purple{\text{s.t. }
+										v_j, h_j \in \calK_j := \cbr{w : (2D_j - I) X w \geq 0}},
+								\end{aligned}
+							\]
+						}
+
+						\vspace{1em}
+						where \( D_j = \text{diag}[\mathbbm{1}(X g_j \geq 0)] \).
+
+						\vspace{2.5em}
+						\hrule
+						\vspace{2.5em}
+
+
+					\end{column}
+
+					\begin{column}{0.55\textwidth}
+						\vspace{-2em}
+
+						\begin{figure}[]
+							\centering
+							\input{assets/neural_net}
+						\end{figure}
+
+						\vspace{-3em}
+						\begin{figure}[]
+							\centering
+							\input{assets/convex_reformulation}
+						\end{figure}
+
+					\end{column}
+				\end{columns}
+
+				\large
+				\vspace{-1em}
+				{\Large \blue{Equivalence}}:
+				\vspace{0.25em}
+
+				\begin{itemize}
+					\item If \( m \geq m^* \), where \( m^* \leq n \),
+					      then both programs have the same optimal value.
+
+					\item The convex and non-convex solutions are related by a
+					      \textbf{solution mapping}.
+				\end{itemize}
+
+
+			\end{block}
+
+		\end{column}
+
+		\separatorcolumn
+
+		\begin{column}{\colwidth}
+
+			\vspace{-1.5em}
+			\begin{block}{Proof Strategy}
+				\large
+
+				{\Large
+					\blue{Approach}: We use convex reformulations as an analytical tool!
+				}
+				\begin{enumerate}
+					\item Re-write convex reformulation as a \textbf{constrained group lasso} (CGL) problem,
+					      {\Large
+							      \begin{equation*}\label{eq:constrained-gl}
+								      \begin{aligned}
+									      p^*(\lambda) = \min_{w} \,
+									       & \half \norm{Z w - y}_2^2 + \lambda \sum_{\bi \in \calB} \norm{\wi}_2         \\
+									       & \quad \text{s.t.} \quad \Ki^\top \wi \leq 0  \text{ for all } \bi \in \calB.
+								      \end{aligned}
+							      \end{equation*}
+						      }
+					\item Derive optimal set for CGL using the \textbf{KKT conditions}: if \( \wi \neq 0 \),
+					      {
+							      \Large
+							      \begin{equation*}\label{eq:kkt-cgl}
+								      \underbrace{\red{\Xbi^\top (y - X w) - \Ki \ri}}_{\vi} = \lambda \frac{\wi}{\norm{\wi}_2}
+							      \end{equation*}
+						      }
+
+					\item Obtain ReLU optimal set using the \textbf{solution mapping}:
+
+					      { \Large
+					      \begin{equation*}\label{eq:convex-to-relu}
+						      W_{1i} = \wi^*/ \sqrt{\norm{\wi^*}}, \quad w_{2i} = s_i \cdot \sqrt{\norm{\wi^*}}
+					      \end{equation*}
+					      }
+
+				\end{enumerate}
+
+			\end{block}
+
+			\vspace{-1em}
+			\begin{block}{The ReLU Optimal Set}
+
+				\large
+
+				Define the set of blocks supported by \emph{a solution} to the convex reformulation:
+				\[
+					\calS_\lambda = \cbr{\bi \in \calB : \exists w \in \solfn(\lambda), \wi \neq 0},
+				\]
+				and let \( Z w^* = \hat y \) be the (unique) optimal model fit.
+
+				\vspace{1em}
+
+				\begin{beamercolorbox}[wd=\textwidth,sep=1em]{result}
+
+					\textbf{Corollary 4.1} (informal):
+					Suppose \( m \geq m^* \) and \( \lambda > 0 \).
+					Then the set of optimal two-layer ReLU MLPs is,
+
+					\begin{equation*}\label{eq:relu-sol-fn}
+						\Large
+						\begin{aligned}
+							\calO_\lambda  = \,
+							\big\{
+							(W_1,  w_2) : &
+							\, f_{W_1, w_2}(Z)  =  \hat y,                                                                  \\
+							              & W_{1i} = \rbr{\frac{\alpha_{i}}{\lambda}}^{\frac{1}{2}} v_i,
+							w_{2i} = \rbr{\alpha_i \lambda}^{\frac{1}{2}},                                                  \\
+							              & \alpha_i \geq 0, \, i \in [2p] \setminus \calS_\lambda \Rightarrow \alpha_i = 0
+							\big\},
+						\end{aligned}
+					\end{equation*}
+				\end{beamercolorbox}
+
+				\textbf{Interpretation}: optimal neurons are scalings of the correlation vector \( \vi \)
+				on the \blue{manifold of optimal predictions}.
+
+			\end{block}
+			\vspace{-1em}
+			\begin{block}{Conditions for Uniqueness}
+				\large
+
+				{ \Large
+					\red{Q}: When are optimal ReLU networks unique up to permutations?
+
+					\vspace{0.5em}
+
+					\blue{A}: When the convex reformulation has a unique solution!
+				}
+				\vspace{0.5em}
+
+				\begin{beamercolorbox}[wd=\textwidth,sep=1em]{result}
+					\textbf{Proposition 4.3} (informal):
+					Suppose \( m \geq m^* \) and \( \lambda > 0 \).
+					If there does not exist \( \alpha \neq 0 \) such that
+					\[
+						\Large
+						\sum_{i\in \calS_\lambda } \alpha_i (X W_{1i})_+ = 0,
+					\]
+					then the non-convex solution is permutation unique.
+				\end{beamercolorbox}
+
+				\textbf{Linear Independence} of the activations
+				is easy to check and implies \blue{minimality}.
+
+			\end{block}
+		\end{column}
+
+		\separatorcolumn
+
+		\begin{column}{\colwidth}
+			\vspace{-1.5em}
+			\begin{block}{Optimal Pruning}
+				\large
+				\textbf{Definition}: a ReLU network is \emph{minimal}
+				if no optimal network is strictly narrower.
+
+				\vspace{0.5em}
+
+				\begin{beamercolorbox}[wd=\textwidth,sep=1em]{result}
+					\textbf{Proposition 3.6} (informal):
+					Let
+					\( m \geq m^* \) and \( \lambda > 0 \).
+					A model is minimal if and only if the non-zero
+					activations \( (X W_{1i})_+ \) are linearly independent.
+				\end{beamercolorbox}
+
+				\vspace{0.5em}
+
+				\input{cgl_pruning.tex}
+
+				\blue{Optimal Pruning} computes minimal ReLU networks such that
+				\begin{itemize}
+					\item \textbf{Maximum width}: pruned model has \( m^* \leq n \) non-zero neurons.
+					\item \textbf{Poly-time}: pruning is \( O(n^3 m + n d) \) and GPU-friendly.
+				\end{itemize}
+
+			\end{block}
+			\vspace{-1em}
+			\begin{block}{Experiments}
+				\large
+				\begin{figure}[]
+					\centering
+					\includegraphics[width=\textwidth]{assets/uci_pruning_acc.pdf}
+					\label{fig:purning}
+					\vspace{-2em}
+					\caption{Test accuracy for theory-inspired pruning (Optimal/LS) and baseline methods.}
+				\end{figure}
+				\vspace{-0.5em}
+				\begin{itemize}
+					\item We consider pruning neurons on several UCI
+					      classification datasets.
+					\item Our approach \blue{dominates} every baseline considered.
+				\end{itemize}
+
+				\vspace{-0.5em}
+				\input{uci_tuning_paper.tex}
+				\begin{itemize}
+					\item We tune ReLU networks by direct optimization over the optimal set.
+					\item Optimal model differ in test accuracy by over \red{20 accuracy points}!
+				\end{itemize}
+
+			\end{block}
+			\vspace{-1em}
+
+			\begin{block}{References}
+
+				\footnotesize{
+					\bibliography{
+						bib/monographs.bib,
+						bib/gradient_methods.bib,
+						bib/lower_bounds.bib,
+						bib/assumptions.bib,
+						bib/interpolation.bib,
+						bib/step_sizes.bib,
+						bib/datasets.bib,
+						bib/general_refs.bib}
+				}
+				\bibliographystyle{icml2023}
+
+			\end{block}
+
+		\end{column}
+
+		\separatorcolumn
+	\end{columns}
+\end{frame}
+
+\end{document}

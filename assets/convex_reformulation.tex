@@ -1,0 +1,81 @@
+\begin{tikzpicture}[scale=2.5,
+	]
+	\begin{axis}[width=0.4\linewidth, height=8cm,
+			axis lines=none,  % don't print axis lines
+			yticklabels={,,}, xticklabels={,,},
+			ymin=0, ymax=8, y axis line style={-},
+			xmin=0, xmax=15, x axis line style={-},
+		]
+		\node [] (input1) at (axis cs:3,1) {$X$};
+		\node [] (input2) at (axis cs:3,2.75) {$X$};
+		\node [] (input3) at (axis cs:3,4.5) {$X$};
+
+		\node [Splits] (hidden1) at (axis cs:9,1) {\scriptsize $D_3 X$};
+		\node [Splits] (hidden2) at (axis cs:9,2.75) {\scriptsize $D_2 X$};
+		\node [Splits] (hidden3) at (axis cs:9,4.5) {\scriptsize $D_1 X$};
+
+		\draw [->, style=arrow, draw=black] (input1) -- (hidden1);
+
+		\draw [->, style=arrow, draw=black] (input2) -- (hidden2);
+
+		\draw [->, style=arrow, draw=red] (input3) -- (hidden3);
+
+		\node [Output] (output) at (axis cs:13,2.75) {$\hat y$};
+
+		\draw [->, style=arrow, draw=black] (hidden1) -- (output);
+		\draw [->, style=arrow, draw=black] (hidden2) -- (output);
+		\draw [->, style=arrow, draw=red] (hidden3) -- (output) node[pos=0.8,above] {$v_j$};
+
+		\draw [draw=black, line width=0.3mm, dashed] (axis cs:4.65, 4.75) -- (axis cs:6.,6.6);
+		\draw [draw=black, line width=0.3mm, dashed] (axis cs:6.5, 4.4) -- (axis cs:8.8,5.65);
+
+		\node [draw=black, minimum size=0.2cm, shape=circle, solid, line width=0.5mm] (examine) at (axis cs:5.5,4.5) {};
+		\node [draw=black, minimum size=1.4cm, shape=circle, solid, line width=0.5mm] (closeup) at (axis cs:7.5,6.2) {};
+
+		\node [fill=white, draw=gray, line width=0.5mm, inner sep=0.07cm, shape=circle] at (axis cs:7.9,6.85) {};
+		\node [fill=white, draw=gray, line width=0.5mm, inner sep=0.07cm, shape=circle] at (axis cs:7.15,6.9) {};
+		\node [fill=white, draw=gray, line width=0.5mm, inner sep=0.07cm, shape=circle] at (axis cs:7.2,6.5) {};
+		\node [fill=white, draw=gray, line width=0.5mm, inner sep=0.07cm, shape=circle] at (axis cs:6.3,6.25) {};
+
+		\draw [draw=blue, dashed, line width=0.6mm] (axis cs:6.05,5.7) -- (axis cs:8.65,6.75);
+
+		\node [fill=red, inner sep=0.08cm, shape=circle] at (axis cs:7.1,5.65) {};
+		\node [fill=red, inner sep=0.08cm, shape=circle] at (axis cs:7.6,6.0) {};
+		\node [fill=red, inner sep=0.08cm, shape=circle] at (axis cs:8.0,5.7) {};
+
+	\end{axis}
+
+\end{tikzpicture}%
+
+%\begin{tikzpicture}[scale=1,
+%    ]
+%    \begin{axis}[width=1.1\linewidth, height=5cm,
+%            axis lines=none,  % don't print axis lines
+%            yticklabels={,,}, xticklabels={,,},
+%            ymin=-0.2, ymax=10.2, x axis line style={-},
+%            xmin=-0.2, xmax=20.2, y axis line style={-},
+%        ]
+
+%        \filldraw[color=blue!60, fill=blue!5, line width=0.4mm](axis cs:0,5.8) rectangle (axis cs:20, 10);
+%        \filldraw[color=red!60, fill=red!5, line width=0.4mm](axis cs:0,0) rectangle (axis cs:20, 4.2);
+
+%        % non-convex models
+%        \filldraw[line width=0.4mm, fill=white](axis cs:1,1) rectangle (axis cs:8, 3.2) node[pos=.5] {NC-GReLU};
+%        \filldraw[line width=0.4mm, fill=white](axis cs:12,1) rectangle (axis cs:19, 3.2) node[pos=.5] {NC-ReLU};
+
+%        % convex models
+%        \filldraw[line width=0.4mm, fill=white](axis cs:1,6.8) rectangle (axis cs:8, 9) node[pos=.5] {C-GReLU};
+%        \filldraw[line width=0.4mm, fill=white](axis cs:12,6.8) rectangle (axis cs:19, 9) node[pos=.5] {C-ReLU};
+
+%        \draw [<->, solid, draw=black, line width = 0.6mm] (axis cs:4.5,3.2) -- (axis cs:4.5,6.8) node[right, pos=0.5] {\small Sol. Map};
+
+%        \draw [<->, solid, draw=black, line width = 0.6mm] (axis cs:15.5,3.2) -- (axis cs:15.5,6.8)  node[right, pos=0.5] {\small Sol. Map};
+
+%        \draw [<-, solid, draw=black, line width = 0.6mm] (axis cs:6,9) -- [bend left=15] (axis cs:14, 9);
+
+%        \draw [->, solid, draw=orange, line width = 0.6mm] (axis cs:8,7.9) -- (axis cs:12,7.9);
+%        \node[align=center] at (axis cs:10.1, 7.8) {\small Cone\\ \small Decomp.};
+%    \end{axis}
+
+%\end{tikzpicture}%
+

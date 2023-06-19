@@ -1,0 +1,297 @@
+%% Math macros for LaTex Projects 
+%% Maintainer: Aaron Mishkin <amishkin@cs.stanford.edu>
+%% Original Source: Mark Schmidt (UBC CS), Ben Bloem-Reddy (UBC Stats).
+
+%% Easy bold-face 
+
+\def\bfA{\mathbf{A}}
+\def\bfB{\mathbf{B}}
+\def\bfC{\mathbf{C}}
+\def\bfD{\mathbf{D}}
+\def\bfE{\mathbf{E}}
+\def\bfF{\mathbf{F}}
+\def\bfG{\mathbf{G}}
+\def\bfH{\mathbf{H}}
+\def\bfI{\mathbf{I}}
+\def\bfJ{\mathbf{J}}
+\def\bfK{\mathbf{K}}
+\def\bfL{\mathbf{L}}
+\def\bfM{\mathbf{M}}
+\def\bfN{\mathbf{N}}
+\def\bfO{\mathbf{O}}
+\def\bfP{\mathbf{P}}
+\def\bfQ{\mathbf{Q}}
+\def\bfR{\mathbf{R}}
+\def\bfS{\mathbf{S}}
+\def\bfT{\mathbf{T}}
+\def\bfU{\mathbf{U}}
+\def\bfV{\mathbf{V}}
+\def\bfW{\mathbf{W}}
+\def\bfX{\mathbf{X}}
+\def\bfY{\mathbf{Y}}
+\def\bfZ{\mathbf{Z}}
+
+% bb series
+\def\bbA{\mathbb{A}}
+\def\bbB{\mathbb{B}}
+\def\bbC{\mathbb{C}}
+\def\bbD{\mathbb{D}}
+\def\bbE{\mathbb{E}}
+\def\bbF{\mathbb{F}}
+\def\bbG{\mathbb{G}}
+\def\bbH{\mathbb{H}}
+\def\bbI{\mathbb{I}}
+\def\bbJ{\mathbb{J}}
+\def\bbK{\mathbb{K}}
+\def\bbL{\mathbb{L}}
+\def\bbM{\mathbb{M}}
+\def\bbN{\mathbb{N}}
+\def\bbO{\mathbb{O}}
+\def\bbP{\mathbb{P}}
+\def\bbQ{\mathbb{Q}}
+\def\bbR{\mathbb{R}}
+\def\bbS{\mathbb{S}}
+\def\bbT{\mathbb{T}}
+\def\bbU{\mathbb{U}}
+\def\bbV{\mathbb{V}}
+\def\bbW{\mathbb{W}}
+\def\bbX{\mathbb{X}}
+\def\bbY{\mathbb{Y}}
+\def\bbZ{\mathbb{Z}}
+
+% cal series
+\def\calA{\mathcal{A}}
+\def\calB{\mathcal{B}}
+\def\calC{\mathcal{C}}
+\def\calD{\mathcal{D}}
+\def\calE{\mathcal{E}}
+\def\calF{\mathcal{F}}
+\def\calG{\mathcal{G}}
+\def\calH{\mathcal{H}}
+\def\calI{\mathcal{I}}
+\def\calJ{\mathcal{J}}
+\def\calK{\mathcal{K}}
+\def\calL{\mathcal{L}}
+\def\calM{\mathcal{M}}
+\def\calN{\mathcal{N}}
+\def\calO{\mathcal{O}}
+\def\calP{\mathcal{P}}
+\def\calQ{\mathcal{Q}}
+\def\calR{\mathcal{R}}
+\def\calS{\mathcal{S}}
+\def\calT{\mathcal{T}}
+\def\calU{\mathcal{U}}
+\def\calV{\mathcal{V}}
+\def\calW{\mathcal{W}}
+\def\calX{\mathcal{X}}
+\def\calY{\mathcal{Y}}
+\def\calZ{\mathcal{Z}}
+
+
+
+%% Floor and Ceiling %%
+\usepackage{mathtools} % required for \DeclarePairedDelimeter
+
+%% Stochastic Relations %% 
+
+% almost sure:
+\newcommand{\as}[1]{\stackrel{\text{\rm\tiny a.s.}}{#1}}
+% a.s.\ equality:
+\newcommand{\equas}{\stackrel{\text{\rm\tiny a.s.}}{=}}
+
+% in distribution:
+\newcommand{\dist}[1]{\stackrel{\text{\rm\tiny dist}}{#1}}
+% equality in distribution:
+\newcommand{\equdist}{\stackrel{\text{\rm\tiny dist}}{=}}
+
+% independent
+\newcommand{\ind}[0]{\perp \!\!\! \perp }
+
+%% Variance, Expectation, etc %%
+\newcommand{\Var}[1]{\textbf{Var}\sbr{#1}}
+
+% ceiling and floor
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\newcommand{\argdot}{{\,\vcenter{\hbox{\tiny$\bullet$}}\,}} %generic argument dot
+
+% absolute value
+\newcommand{\abs}[1]{\left\vert #1\right\vert}
+
+\newcommand{\seq}[1]{\rbr{#1}}
+
+% easy bracketing:
+\newcommand{\rbr}[1]{\left(#1\right)}
+\newcommand{\sbr}[1]{\left[#1\right]}
+\newcommand{\cbr}[1]{\left\{#1\right\}}
+\newcommand{\abr}[1]{\left\langle#1\right\rangle}
+
+% Norms
+\def\norm#1{\|#1\|}
+\def\biggnorm#1{\bigg\|#1\bigg\|}
+% Random Variable Norms:
+\def\psitwo#1{\|#1\|_{\psi_2}}
+\def\psione#1{\|#1\|_{\psi_1}}
+
+% mid
+\newcommand{\biggmid}{\bigg \vert }
+
+% argmax/argmin
+\def\argmax{\mathop{\rm arg\,max}}
+\def\argmin{\mathop{\rm arg\,min}}
+
+% General Symbols
+\def\half{\frac 1 2}
+\newcommand{\inv}[1]{\frac{1}{#1}}
+\newcommand{\halved}[1]{\frac{#1}{2}}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\into}{\rightarrow}
+
+% Gradient Descent Symbols
+\newcommand{\oracle}{\mbox{\( \calO \)}}
+\newcommand{\iter}{k}
+
+\newcommand{\Lk}{L_{\zk}}
+\newcommand{\Lmax}{L_{\text{max}}}
+\newcommand{\mumax}{\mu_{\text{max}}}
+\newcommand{\Lmin}{L_{\text{min}}}
+\newcommand{\mumin}{\mu_{\text{min}}}
+
+% iterates
+\newcommand{\y}{y}
+\newcommand{\yk}{y_k}
+\newcommand{\ykk}{y_{k+1}}
+
+\newcommand{\vk}{v_k}
+\newcommand{\vkk}{v_{k+1}}
+
+\newcommand{\w}{w}
+\newcommand{\wplus}{w^+}
+\newcommand{\wk}{w_k}
+\newcommand{\wkk}{w_{k+1}}
+\newcommand{\wopt}{w^*}
+\newcommand{\wbar}{\bar{w}}
+
+
+\newcommand{\x}{x}
+\newcommand{\xk}{x_k}
+\newcommand{\xkk}{x_{k+1}}
+\newcommand{\xopt}{x^*}
+\newcommand{\xbar}{\xbar{w}}
+
+% noise
+\newcommand{\Z}{Z}
+\newcommand{\z}{z}
+\newcommand{\zk}{z_{k}}
+\newcommand{\zkk}{z_{k+1}}
+% step-sizes
+\newcommand{\tetak}{{\tilde{\eta}}_{k}}
+\newcommand{\etamin}{\eta_{\text{min}}}
+\newcommand{\etamax}{\eta_{\text{max}}}
+\newcommand{\etak}{\eta_k}
+\newcommand{\etakk}{\eta_{k+1}}
+
+\newcommand{\betak}{\beta_{k}}
+\newcommand{\betakk}{\beta_{k+1}}
+\newcommand{\alphak}{\alpha_{k}}
+\newcommand{\alphakk}{\alpha_{k+1}}
+
+\newcommand{\Ek}{\bbE_{\zk}}
+\newcommand{\E}{\bbE}
+
+% functions
+\newcommand{\f}{f}
+\newcommand{\fj}{f_i}
+\newcommand{\fopt}{f^*}
+% sub-sampled functions
+\newcommand{\fk}{f_{i_k}}
+\newcommand{\fkk}{f_{i_{(k+1)}}}
+% gradients
+\newcommand{\grad}{\nabla f}
+% sub-sampled gradients
+\newcommand{\gradk}{\nabla f_{i_k}}
+\newcommand{\gradkk}{\nabla f_{i_{(k+1)}}}
+
+%% Weak and strong growth constants
+\newcommand{\sgc}{\rho}
+\newcommand{\wgc}{\alpha}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Etc %%  
+
+%% add numbers to align* environments.
+\newcommand{\addnumber}{\addtocounter{equation}{1}\tag{\theequation}}
+
+%%%%%%%%%
+
+
+%% Group Lasso %%
+\newcommand{\bi}{{b_i}}
+\newcommand{\wi}{w_\bi}
+\newcommand{\bwi}{\bar{w}_\bi}
+\newcommand{\vi}{v_\bi}
+\newcommand{\ci}{c_\bi}
+\newcommand{\zi}{z_\bi}
+\newcommand{\Xbi}{X_\bi}
+\newcommand{\act}{{\calA_{\lambda}}}
+\newcommand{\inact}{{\calI_{\lambda}}}
+\newcommand{\tran}{{\calT_{\lambda}}}
+\newcommand{\equi}{{\calE_{\lambda}}}
+
+\newcommand{\acts}{{\calA_{\lambda}^{*}}}
+\newcommand{\trans}{{\calT_{\lambda}^{*}}}
+
+\newcommand{\wa}{w_\act}
+\newcommand{\was}{w_\acts}
+\newcommand{\we}{w_\equi}
+\newcommand{\va}{v_\act}
+\newcommand{\vas}{v_\acts}
+\newcommand{\ca}{c_\act}
+\newcommand{\cas}{c_\acts}
+\newcommand{\ve}{v_\equi}
+\newcommand{\ce}{c_\equi}
+\newcommand{\Xa}{X_\act}
+\newcommand{\Xas}{X_\acts}
+\newcommand{\Xe}{X_\equi}
+
+\newcommand{\wmin}{w^*}
+\newcommand{\solfn}{\calW^*}
+
+\newcommand{\Null}{\text{Null}}
+\newcommand{\Row}{\text{Row}}
+\newcommand{\Span}{\text{Span}}
+\newcommand{\Range}{\text{Range}}
+
+\newcommand{\Di}{\calD_{\bi}}
+\newcommand{\Si}{\calN_{\bi}}
+\newcommand{\Dis}{\Di^{*}}
+\newcommand{\Sis}{\Ni^{*}}
+\newcommand{\Ds}{\calD^{*}_\lambda}
+\newcommand{\Ss}{\calN^{*}_\lambda}
+
+\newcommand{\Ki}{K_{\bi}}
+\newcommand{\Kid}{K_{\Di}}
+\newcommand{\Kids}{K_{\Di^*}}
+\newcommand{\Kd}{K_{\calD}}
+\newcommand{\Kda}{K_{\calD \cap \act}}
+\newcommand{\Kdas}{K_{\Gs}}
+\newcommand{\Ka}{K_\act}
+
+\newcommand{\Gs}{\calG^{*}_{\lambda}}
+
+% dual parameters
+\newcommand{\ri}{\rho_{\bi}}
+\newcommand{\ract}{\rho_{\act}}
+\newcommand{\racts}{\rho_{\acts}}
+\newcommand{\rid}{\rho_{\Di}}
+\newcommand{\rd}{\rho_{\calD}}
+\newcommand{\rda}{\rho_{\calD \cap \act}}
+\newcommand{\rdas}{\rho_{\Gs}}
+\newcommand{\ra}{\rho_{\act}}
+\newcommand{\rmin}{\rho^*}
+
+\newcommand{\vmin}{v^*}
+\newcommand{\diag}{\text{diag}}
+\newcommand{\nnz}{\text{nnz}}

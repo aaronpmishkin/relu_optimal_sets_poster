@@ -1,0 +1,27 @@
+%% Plotting macros for LaTex Projects 
+%% Maintainer: Aaron Mishkin <amishkin@cs.stanford.edu>
+
+
+%% Tikz and PGFplots packages
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+% tikz and PGFplots libraries
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
+
+
+
+%% tikz settings 
+\tikzset{
+    font={\fontsize{12pt}{12}\selectfont},
+}
+
+%% PGFplots settings 
+\pgfplotsset{
+    % version compatibility
+    compat=1.5.1,
+    % basic line-styles
+    primary/.style={color=black, style=solid, line width=1.5pt}, 
+    secondary/.style={color=red, style=solid, line width=1.5pt}, 
+}

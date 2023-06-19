@@ -1,7 +1,7 @@
 # SCNN Poster
 
-Poster for the paper *Fast Convex Optimization for Two-Layer ReLU Networks: Equivalent Model Classes and Cone Decompositions*
-presented at ICML 2022.
+Poster for the paper *Optimal Sets and Solution Paths of ReLU Networks*
+presented at ICML 2023.
 
 
 ### Citation
@@ -9,21 +9,10 @@ presented at ICML 2022.
 Please cite our paper if you make use of assets from the poster. 
 
 ```
-@article{DBLP:journals/corr/abs-2202-01331,
-  author    = {Aaron Mishkin and
-               Arda Sahiner and
-               Mert Pilanci},
-  title     = {Fast Convex Optimization for Two-Layer ReLU Networks: Equivalent Model
-               Classes and Cone Decompositions},
-  journal   = {CoRR},
-  volume    = {abs/2202.01331},
-  year      = {2022},
-  url       = {https://arxiv.org/abs/2202.01331},
-}
 ```
 
 Looking for the code to replicate our experiments?
-See [scnn_experiments](https://github.com/aaronpmishkin/scnn_experiments).
+See [relu optimal sets](https://github.com/aaronpmishkin/relu_optimal_sets).
 
 
 ### Acknowledgements

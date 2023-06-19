@@ -1,0 +1,79 @@
+\begin{tikzpicture}[scale=2.5,
+	]
+	\begin{axis}[width=0.4\linewidth, height=8cm,
+			axis lines=none,  % don't print axis lines
+			yticklabels={,,}, xticklabels={,,},
+			ymin=0, ymax=8, y axis line style={-},
+			xmin=0, xmax=15, x axis line style={-},
+		]
+		\node [] (input) at (axis cs:0.5,4) {$X$};
+		\node [Input] (input1) at (axis cs:3,2) {};
+		\node [Input] (input2) at (axis cs:3,4) {};
+		\node [Input] (input3) at (axis cs:3,6) {};
+
+		\draw [decorate, line width = 0.6mm,
+			decoration = {calligraphic brace}] (axis cs:1.5,1.5) --  (axis cs:1.5,6.5);
+
+		\node [Hidden] (hidden1) at (axis cs:8,1) {};
+		\node [Hidden] (hidden2) at (axis cs:8,3) {};
+		\node [Hidden] (hidden3) at (axis cs:8,5) {};
+		\node [Hidden] (hidden4) at (axis cs:8,7) {};
+
+		\draw [->, style=arrow, draw=black] (input1) -- (hidden1);
+		\draw [->, style=arrow, draw=black] (input2) -- (hidden1);
+		\draw [->, style=arrow, draw=black] (input3) -- (hidden1);
+
+		\draw [->, style=arrow, draw=black] (input1) -- (hidden2);
+		\draw [->, style=arrow, draw=black] (input2) -- (hidden2);
+		\draw [->, style=arrow, draw=black] (input3) -- (hidden2);
+
+		\draw [->, style=arrow, draw=black] (input1) -- (hidden3);
+		\draw [->, style=arrow, draw=black] (input2) -- (hidden3);
+		\draw [->, style=arrow, draw=black] (input3) -- (hidden3);
+
+		\draw [->, style=arrow, draw=red] (input1) -- (hidden4);
+		\draw [->, style=arrow, draw=red] (input2) -- (hidden4);
+		\draw [->, style=arrow, draw=red] (input3) -- (hidden4) node[pos=0.5,above] {$w^1_{j}$};
+
+		\node [Output] (output) at (axis cs:13,4) {$\hat y$};
+
+		\draw [->, style=arrow, draw=black] (hidden1) -- (output);
+		\draw [->, style=arrow, draw=black] (hidden2) -- (output);
+		\draw [->, style=arrow, draw=black] (hidden3) -- (output);
+        \draw [->, style=arrow, draw=red] (hidden4) -- (output) node[pos=0.5,above] {$w^2_{j}$};
+	\end{axis}
+
+\end{tikzpicture}%
+
+%\begin{tikzpicture}[scale=1,
+%    ]
+%    \begin{axis}[width=1.1\linewidth, height=5cm,
+%            axis lines=none,  % don't print axis lines
+%            yticklabels={,,}, xticklabels={,,},
+%            ymin=-0.2, ymax=10.2, x axis line style={-},
+%            xmin=-0.2, xmax=20.2, y axis line style={-},
+%        ]
+
+%        \filldraw[color=blue!60, fill=blue!5, line width=0.4mm](axis cs:0,5.8) rectangle (axis cs:20, 10);
+%        \filldraw[color=red!60, fill=red!5, line width=0.4mm](axis cs:0,0) rectangle (axis cs:20, 4.2);
+
+%        % non-convex models
+%        \filldraw[line width=0.4mm, fill=white](axis cs:1,1) rectangle (axis cs:8, 3.2) node[pos=.5] {NC-GReLU};
+%        \filldraw[line width=0.4mm, fill=white](axis cs:12,1) rectangle (axis cs:19, 3.2) node[pos=.5] {NC-ReLU};
+
+%        % convex models
+%        \filldraw[line width=0.4mm, fill=white](axis cs:1,6.8) rectangle (axis cs:8, 9) node[pos=.5] {C-GReLU};
+%        \filldraw[line width=0.4mm, fill=white](axis cs:12,6.8) rectangle (axis cs:19, 9) node[pos=.5] {C-ReLU};
+
+%        \draw [<->, solid, draw=black, line width = 0.6mm] (axis cs:4.5,3.2) -- (axis cs:4.5,6.8) node[right, pos=0.5] {\small Sol. Map};
+
+%        \draw [<->, solid, draw=black, line width = 0.6mm] (axis cs:15.5,3.2) -- (axis cs:15.5,6.8)  node[right, pos=0.5] {\small Sol. Map};
+
+%        \draw [<-, solid, draw=black, line width = 0.6mm] (axis cs:6,9) -- [bend left=15] (axis cs:14, 9);
+
+%        \draw [->, solid, draw=orange, line width = 0.6mm] (axis cs:8,7.9) -- (axis cs:12,7.9);
+%        \node[align=center] at (axis cs:10.1, 7.8) {\small Cone\\ \small Decomp.};
+%    \end{axis}
+
+%\end{tikzpicture}%
+
