@@ -71,7 +71,7 @@
 \usetikzlibrary{shapes, arrows}
 \usetikzlibrary{decorations.pathreplacing, calligraphy}
 
-\newcommand{\red}[1]{\textcolor{CBRed}{#1}}
+\newcommand{\red}[1]{\textcolor{Red}{#1}}
 \newcommand{\blue}[1]{\textcolor{CBBlue}{#1}}
 \newcommand{\purple}[1]{\textcolor{Magenta}{#1}}
 
@@ -137,15 +137,15 @@
 				\large
 				{
 					\Large
-					\blue{\textbf{Idea}}: Derive optima for ReLU models via convex reformulations.
+					\blue{\textbf{Main Contribution}}: characterize all optimal two-layer ReLU nets.
 				}
 
 				\begin{itemize}
-					\item \textbf{Critical Points}: we extend characterization to all Clarke stationary points.
+					\item \textbf{Critical Points}: we extend our expression to all Clarke stationary points.
 
-					\item \textbf{Pruning}: we compute ``narrowest'' ReLU networks via optimal pruning.
+					\item \textbf{Uniqueness}: we give simple conditions for optima to be p-unique.
 
-					\item \textbf{Regularization}: we prove continuity for permutation-unique solutions.
+					\item \textbf{Pruning}: we show how to compute the ``narrowest'' optimal ReLU networks.
 				\end{itemize}
 
 				\vspace{-1em}
@@ -258,8 +258,8 @@
 							      \begin{equation*}\label{eq:constrained-gl}
 								      \begin{aligned}
 									      p^*(\lambda) = \min_{w} \,
-									       & \half \norm{Z w - y}_2^2 + \lambda \sum_{\bi \in \calB} \norm{\wi}_2         \\
-									       & \quad \text{s.t.} \quad \Ki^\top \wi \leq 0  \text{ for all } \bi \in \calB.
+									       & \half \norm{Z w - y}_2^2 + \lambda \sum_{\bi \in \calB} \norm{\wi}_2                  \\
+									       & \quad \text{s.t.} \quad \purple{\Ki^\top \wi \leq 0}  \text{ for all } \bi \in \calB.
 								      \end{aligned}
 							      \end{equation*}
 						      }
@@ -267,17 +267,17 @@
 					      {
 							      \Large
 							      \begin{equation*}\label{eq:kkt-cgl}
-								      \underbrace{\red{\Xbi^\top (y - X w) - \Ki \ri}}_{\vi} = \lambda \frac{\wi}{\norm{\wi}_2}
+								      \underbrace{\red{Z_{\bi}^\top (y - Z w) - \Ki \ri}}_{\vi} = \lambda \frac{\wi}{\norm{\wi}_2}
 							      \end{equation*}
 						      }
 
-					\item Obtain ReLU optimal set using the \textbf{solution mapping}:
+					\item Obtain ReLU optimal set using the \textbf{solution mapping}: for \( s_i \in \cbr{+1, -1} \),
 
 					      { \Large
-					      \begin{equation*}\label{eq:convex-to-relu}
-						      W_{1i} = \wi^*/ \sqrt{\norm{\wi^*}}, \quad w_{2i} = s_i \cdot \sqrt{\norm{\wi^*}}
-					      \end{equation*}
-					      }
+							      \begin{equation*}\label{eq:convex-to-relu}
+								      W_{1i} = \wi^*/ \sqrt{\norm{\wi^*}}, \quad w_{2i} = s_i \cdot \sqrt{\norm{\wi^*}}
+							      \end{equation*}
+						      }
 
 				\end{enumerate}
 
@@ -317,8 +317,8 @@
 					\end{equation*}
 				\end{beamercolorbox}
 
-				\textbf{Interpretation}: optimal neurons are scalings of the correlation vector \( \vi \)
-				on the \blue{manifold of optimal predictions}.
+				\textbf{Interpretation}: optimal neurons are scalings of the correlation vector \( \red{\vi} \)
+				on the \blue{manifold of optimal predictors}.
 
 			\end{block}
 			\vspace{-1em}
@@ -342,11 +342,12 @@
 						\Large
 						\sum_{i\in \calS_\lambda } \alpha_i (X W_{1i})_+ = 0,
 					\]
-					then the non-convex solution is permutation unique.
+					then the non-convex solution is permutation unique (p-unique).
 				\end{beamercolorbox}
 
-				\textbf{Linear Independence} of the activations
-				is easy to check and implies \blue{minimality}.
+				\textbf{Continuity}: p-uniqueness on a neighbourhood \( \calN \)
+				implies continuity of the regularization path
+				\( \lambda \mapsto (W_1(\lambda), w_2(\lambda)) \) on \( \calN \).
 
 			\end{block}
 		\end{column}
@@ -357,8 +358,9 @@
 			\vspace{-1.5em}
 			\begin{block}{Optimal Pruning}
 				\large
-				\textbf{Definition}: a ReLU network is \emph{minimal}
-				if no optimal network is strictly narrower.
+				\textbf{Definition}: a ReLU network is \blue{minimal}
+				if there does not exist an optimal network with strictly
+				fewer non-zero neurons.
 
 				\vspace{0.5em}
 
@@ -375,6 +377,7 @@
 				\input{cgl_pruning.tex}
 
 				\blue{Optimal Pruning} computes minimal ReLU networks such that
+				\vspace{-0.5em}
 				\begin{itemize}
 					\item \textbf{Maximum width}: pruned model has \( m^* \leq n \) non-zero neurons.
 					\item \textbf{Poly-time}: pruning is \( O(n^3 m + n d) \) and GPU-friendly.
@@ -384,6 +387,9 @@
 			\vspace{-1em}
 			\begin{block}{Experiments}
 				\large
+
+				{\Large \blue{Goal}: highlight practical consequences of our theory.}
+
 				\begin{figure}[]
 					\centering
 					\includegraphics[width=\textwidth]{assets/uci_pruning_acc.pdf}
@@ -402,7 +408,7 @@
 				\input{uci_tuning_paper.tex}
 				\begin{itemize}
 					\item We tune ReLU networks by direct optimization over the optimal set.
-					\item Optimal model differ in test accuracy by over \red{20 accuracy points}!
+					\item Same training performance, but test accuracy differs by over \red{20 points}!
 				\end{itemize}
 
 			\end{block}

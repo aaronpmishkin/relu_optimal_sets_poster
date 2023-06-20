@@ -1,4 +1,4 @@
-# SCNN Poster
+# ReLU Optimal Sets Poster
 
 Poster for the paper *Optimal Sets and Solution Paths of ReLU Networks*
 presented at ICML 2023.
