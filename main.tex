@@ -326,7 +326,7 @@
 				\large
 
 				{ \Large
-					\red{Q}: When are optimal ReLU networks unique up to permutations?
+					\red{Q}: When are optimal networks unique up to permutations/splits?
 
 					\vspace{0.5em}
 
@@ -376,19 +376,23 @@
 
 				\input{cgl_pruning.tex}
 
-				\blue{Optimal Pruning} computes minimal ReLU networks such that
-				\vspace{-0.5em}
-				\begin{itemize}
-					\item \textbf{Maximum width}: pruned model has \( m^* \leq n \) non-zero neurons.
-					\item \textbf{Poly-time}: pruning is \( O(n^3 m + n d) \) and GPU-friendly.
-				\end{itemize}
+				\begin{beamercolorbox}[wd=\textwidth,sep=1em]{result}
+					\textbf{Proposition} (informal):
+					Algorithm 1 computes an optimal and minimal ReLU network with
+					\( m^* \leq n \) non-zero neurons in
+					\( O(n^3 m + nd) \) time.
+				\end{beamercolorbox}
+
+				\textbf{Direct Pruning}: We give equivalent algorithm
+				for non-convex params.
+
 
 			\end{block}
 			\vspace{-1em}
 			\begin{block}{Experiments}
 				\large
 
-				{\Large \blue{Goal}: highlight practical consequences of our theory.}
+				%{\Large \blue{Goal}: highlight practical consequences of our theory.}
 
 				\begin{figure}[]
 					\centering
