@@ -3,8 +3,8 @@
 	\caption{\large Optimal Pruning}
 	\label{alg:pruning-solutions}
 	\begin{algorithmic}
-		\STATE {\large {\bfseries Input:} data matrix \( X \), solution \( w^0 \).}
-		\WHILE {\( \exists \beta \neq 0 \) s.t. \( \sum_{\bi \in \act(w^k)} \beta_\bi \Xbi \wi^k = 0 \)}
+		\STATE {\large {\bfseries Input:} data matrix \( Z \), solution \( w^0 \).}
+		\WHILE {\( \exists \beta \neq 0 \) s.t. \( \sum_{\bi \in \act(w^k)} \beta_\bi Z_{\bi} \wi^k = 0 \)}
 		\STATE \( \bi^k \gets \argmax_{\bi} \cbr{|\beta_\bi| : \bi \in \act(w^k)}  \)
 		\STATE \( t^k \gets 1/|\beta_{\bi^k}| \)
 		\STATE \( \w^{k+1} \gets \w^k (1 - t^k \beta_\bi) \)
