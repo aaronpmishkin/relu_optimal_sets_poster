@@ -6,13 +6,9 @@
 			ymin=0, ymax=8, y axis line style={-},
 			xmin=0, xmax=15, x axis line style={-},
 		]
-		\node [] (input) at (axis cs:0.5,4) {$X$};
 		\node [Input] (input1) at (axis cs:3,2) {};
 		\node [Input] (input2) at (axis cs:3,4) {};
 		\node [Input] (input3) at (axis cs:3,6) {};
-
-		\draw [decorate, line width = 0.6mm,
-			decoration = {calligraphic brace}] (axis cs:1.5,1.5) --  (axis cs:1.5,6.5);
 
 		\node [Hidden] (hidden1) at (axis cs:8,1) {};
 		\node [Hidden] (hidden2) at (axis cs:8,3) {};
@@ -33,14 +29,14 @@
 
 		\draw [->, style=arrow, draw=red] (input1) -- (hidden4);
 		\draw [->, style=arrow, draw=red] (input2) -- (hidden4);
-		\draw [->, style=arrow, draw=red] (input3) -- (hidden4) node[pos=0.5,above] {$w^1_{j}$};
+		\draw [->, style=arrow, draw=red] (input3) -- (hidden4) node[pos=0.5,above] {$\theta^1_{j}$};
 
 		\node [Output] (output) at (axis cs:13,4) {$\hat y$};
 
 		\draw [->, style=arrow, draw=black] (hidden1) -- (output);
 		\draw [->, style=arrow, draw=black] (hidden2) -- (output);
 		\draw [->, style=arrow, draw=black] (hidden3) -- (output);
-        \draw [->, style=arrow, draw=red] (hidden4) -- (output) node[pos=0.5,above] {$w^2_{j}$};
+		\draw [->, style=arrow, draw=red] (hidden4) -- (output) node[pos=0.5,above] {$\theta^2_{j}$};
 	\end{axis}
 
 \end{tikzpicture}%

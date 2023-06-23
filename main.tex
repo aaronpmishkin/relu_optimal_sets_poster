@@ -153,7 +153,7 @@
 				\begin{figure}[]
 					\centering
 					\includegraphics[width=.9\textwidth]{assets/solution_sets_vis_270.png}
-					\caption{\textbf{Optimal set} for the first features of three different
+					\caption{\textbf{Optimal set} for the first feature of three different
 						neurons.}
 					\vspace{-1em}
 					\label{fig:solution-sets}
@@ -172,8 +172,8 @@
 						{
 							\Large
 							\[
-								\min_{w^1, w^2} \underbrace{\norm{\sum_{j=1}^m (X w^1_j)_+ w_j^2 - y}_2^2}_{\text{Squared Error}}
-								+ \underbrace{\lambda \sum_{j=1}^m \norm{w^1_j}_2^2 + \norm{w^2_j}_2^2}_{\text{Weight Decay}},
+								\min_{\theta^1, \theta^2} \underbrace{\norm{\sum_{j=1}^m (X \theta^1_j)_+ \theta_j^2 - y}_2^2}_{\text{Squared Error}}
+								+ \underbrace{\lambda \sum_{j=1}^m \norm{\theta^1_j}_2^2 + \norm{\theta^2_j}_2^2}_{\text{Weight Decay}},
 							\]
 						}
 						where \( \rbr{x}_+ = \max\cbr{x, 0} \) is the ReLU activation.
@@ -188,10 +188,10 @@
 						{\Large
 							\[
 								\begin{aligned}
-									\min_{v, h} & \norm{\sum_{j=1}^p D_j X (v_j - h_j) - y}_2^2 +
-									\lambda \sum_{j=1}^p \norm{v_j}_2 + \norm{h_j}_2              \\
+									\min_{u, h} & \norm{\sum_{j=1}^p D_j X (u_j - h_j) - y}_2^2 +
+									\lambda \sum_{j=1}^p \norm{u_j}_2 + \norm{h_j}_2              \\
 									            & \hspace{0.2em} \purple{\text{s.t. }
-										v_j, h_j \in \calK_j := \cbr{w : (2D_j - I) X w \geq 0}},
+										u_j, h_j \in \calK_j := \cbr{w : (2D_j - I) X w \geq 0}},
 								\end{aligned}
 							\]
 						}
@@ -275,7 +275,7 @@
 
 					      { \Large
 							      \begin{equation*}\label{eq:convex-to-relu}
-								      W_{1i} = \wi^*/ \sqrt{\norm{\wi^*}}, \quad w_{2i} = s_i \cdot \sqrt{\norm{\wi^*}}
+								      \theta_{i}^1 = \wi^*/ \sqrt{\norm{\wi^*}}, \quad \theta_{i}^2 = s_i \cdot \sqrt{\norm{\wi^*}}
 							      \end{equation*}
 						      }
 
@@ -308,9 +308,9 @@
 							\calO_\lambda  = \,
 							\big\{
 							(W_1,  w_2) : &
-							\, f_{W_1, w_2}(Z)  =  \hat y,                                                                  \\
-							              & W_{1i} = \rbr{\frac{\alpha_{i}}{\lambda}}^{\frac{1}{2}} v_i,
-							w_{2i} = \rbr{\alpha_i \lambda}^{\frac{1}{2}},                                                  \\
+							\, f_{\theta^1, \theta^2}(Z)  =  \hat y,                                                        \\
+							              & \theta^1_{i} = \rbr{\frac{\alpha_{i}}{\lambda}}^{\frac{1}{2}} v_i,
+							\theta_{i}^2 = \rbr{\alpha_i \lambda}^{\frac{1}{2}},                                            \\
 							              & \alpha_i \geq 0, \, i \in [2p] \setminus \calS_\lambda \Rightarrow \alpha_i = 0
 							\big\},
 						\end{aligned}
@@ -340,14 +340,15 @@
 					If there does not exist \( \alpha \neq 0 \) such that
 					\[
 						\Large
-						\sum_{i\in \calS_\lambda } \alpha_i (X W_{1i})_+ = 0,
+						\sum_{i\in \calS_\lambda } \alpha_i (X \theta^1_{i})_+ = 0,
 					\]
-					then the non-convex solution is permutation unique (p-unique).
+					then the non-convex solution is permutation/splitting
+					unique (p-unique).
 				\end{beamercolorbox}
 
 				\textbf{Continuity}: p-uniqueness on a neighbourhood \( \calN \)
-				implies continuity of the regularization path
-				\( \lambda \mapsto (W_1(\lambda), w_2(\lambda)) \) on \( \calN \).
+				implies continuity of at least one regularization path
+				\( \lambda \mapsto (\theta^1(\lambda), \theta^2(\lambda)) \) on \( \calN \).
 
 			\end{block}
 		\end{column}
@@ -369,7 +370,7 @@
 					Let
 					\( m \geq m^* \) and \( \lambda > 0 \).
 					A model is minimal if and only if the non-zero
-					activations \( (X W_{1i})_+ \) are linearly independent.
+					activations \( (X \theta^1_{i})_+ \) are linearly independent.
 				\end{beamercolorbox}
 
 				\vspace{0.5em}
