@@ -1,6 +1,6 @@
 # ReLU Optimal Sets Poster
 
-Poster for the paper *Optimal Sets and Solution Paths of ReLU Networks*
+Poster for the paper [Optimal Sets and Solution Paths of ReLU Networks](https://proceedings.mlr.press/v202/mishkin23a.html) by Aaron Mishkin and Mert Pilanci,
 presented at ICML 2023.
 
 
