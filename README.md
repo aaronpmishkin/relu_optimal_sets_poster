@@ -30,7 +30,7 @@ Please cite our paper if you make use of assets from the poster.
 ```
 
 Looking for the code to replicate our experiments?
-See [relu optimal sets](https://github.com/aaronpmishkin/relu_optimal_sets).
+See [relu optimal sets](https://github.com/pilancilab/relu_optimal_sets).
 
 
 ### Acknowledgements
